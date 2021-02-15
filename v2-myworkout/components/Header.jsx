@@ -9,9 +9,7 @@ export default function Header() {
         <Container>
             <Navbar className="sticky-top">
                 <Navbar.Brand href="#home">MyWorkouts</Navbar.Brand>
-                <Nav className="mr-auto">
-                    <HeaderItems isAuthenticated={false} />
-                </Nav>
+                <HeaderItems isAuthenticated={false} />
             </Navbar>
         </Container>
     );
