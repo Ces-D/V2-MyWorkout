@@ -8,7 +8,10 @@ function HeaderItems(props) {
             { id: 2, link: "#account", text: "Account" },
             { id: 3, link: "#logout", text: "Logout" },
         ],
-        notAuthenticated: [{ id: 1, link: "#login", text: "Login" }],
+        notAuthenticated: [
+            { id: 1, link: "/login", text: "Login" },
+            { id: 2, link: "/register", text: "Register" },
+        ],
     };
 
     if (props.isAuthenticated) {

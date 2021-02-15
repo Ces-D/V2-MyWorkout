@@ -8,7 +8,7 @@ export default function Header() {
     return (
         <Container>
             <Navbar className="sticky-top">
-                <Navbar.Brand href="#home">MyWorkouts</Navbar.Brand>
+                <Navbar.Brand href="/">MyWorkouts</Navbar.Brand>
                 <HeaderItems isAuthenticated={false} />
             </Navbar>
         </Container>
