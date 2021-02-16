@@ -19,7 +19,7 @@ app.prepare().then(async () => {
     server.use(helmet());
     server.use(compression());
     server.use(express.json());
-    server.use(express.urlencoded({ extended: false }));
+    server.use(express.urlencoded({ extended: true }));
     server.use(cookieParser());
     server.use(
         cookieSession({
