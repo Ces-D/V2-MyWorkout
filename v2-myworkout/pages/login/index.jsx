@@ -1,23 +1,26 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+// import RequestErrorBoundary from "../../components/RequestErrorBoundary";
 
-function Login() {
+export default function Login() {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = await fetch("http://localhost:3000/api/v1/auth/login", {
+        const res = await fetch("/api/v1/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password }),
         });
-        console.log("Token", token);
-        return true;
+        const jsonRes = await res.json();
+        console.log(jsonRes);
+        console.log("resState", res.status);
     };
 
     return (
+        // <RequestErrorBoundary>
         <div>
             <h1>Login Page</h1>
             <Form onSubmit={handleSubmit}>
@@ -42,7 +45,6 @@ function Login() {
                 </Button>
             </Form>
         </div>
+        // </RequestErrorBoundary>
     );
 }
-
-export default Login;
