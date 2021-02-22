@@ -42,7 +42,7 @@ authRouter.post("/login", async (req, res) => {
                 user.hashedPassword
             );
             if (passwordValid) {
-                req.session.cred = user.id;
+                req.session.user = user.id;
                 res.sendStatus(200);
             } else {
                 throw "User not authenticated";
@@ -60,10 +60,10 @@ authRouter.post("/login", async (req, res) => {
  */
 authRouter.post("/delete", async (req, res) => {
     try {
-        await User.destroy({ where: { id: req.id } }); // TODO:
-        res.send("User deleted");
+        await User.destroy({ where: { id: req.session.user } });
+        res.sendStatus(200);
     } catch (error) {
-        res.json({ error: error });
+        res.status(400).json({ error: error });
     }
 });
 
@@ -79,7 +79,7 @@ authRouter.post("/update", async (req, res) => {
         if (body["username"] || 0 !== body["username"].length) {
             updates.userName = body.username;
         }
-        const user = await User.findByPk(id);
+        const user = await User.findByPk(req.session.user);
         await user.update(updates);
         res.send("User updated");
     } catch (error) {
@@ -92,10 +92,21 @@ authRouter.post("/update", async (req, res) => {
  */
 authRouter.get("/user", async (req, res) => {
     try {
-        const user = await User.findByPk(req.id);
+        const user = await User.findByPk(req.session.user);
         res.json({ user: user.dataValues.userName });
     } catch (error) {
         res.json({ error: error });
+    }
+});
+
+/**
+ * Check if User Authenticated Session Exists
+ */
+authRouter.get("/check", (req, res) => {
+    if (req.session.user) {
+        res.sendStatus(200);
+    } else {
+        res.sendStatus(401);
     }
 });
 module.exports = authRouter;

@@ -1,8 +1,5 @@
-import Head from "next/head";
 import Layout from "../components/Layout";
-import { AuthProvider } from "../lib/Auth";
-import { useRouter } from "next/router";
-import cookie from "cookie";
+import { AuthProvider } from "../lib/authProvider";
 import "./globals.css";
 
 function MyApp({ Component, pageProps }) {
