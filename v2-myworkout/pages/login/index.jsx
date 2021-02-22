@@ -2,21 +2,23 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 // import RequestErrorBoundary from "../../components/RequestErrorBoundary";
+import withoutAuth from "../../components/hocs/withoutAuth";
+import { useAuth } from "../../lib/authProvider";
 
-export default function Login() {
+function Login() {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
-
+    const { setAuthenticated } = useAuth();
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await fetch("/api/v1/auth/login", {
+        const response = await fetch("/api/v1/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password }),
         });
-        const jsonRes = await res.json();
-        console.log(jsonRes);
-        console.log("resState", res.status);
+        response.status === 200
+            ? setAuthenticated(true)
+            : console.error("Login Error: ", response);
     };
 
     return (
@@ -48,3 +50,5 @@ export default function Login() {
         // </RequestErrorBoundary>
     );
 }
+
+export default withoutAuth(Login);
