@@ -1,1 +1,5 @@
 [App Reference](https://github.com/async-labs/builderbook/blob/master/builderbook/pages/public/read-chapter.jsx)
+[App Reference 2](https://github.com/argentinux/nextjs-ts-express-starter/blob/master/server/start.ts)
+[Auth Reference](https://dev.to/justincy/detecting-authentication-client-side-in-next-js-with-an-httponly-cookie-when-using-ssr-4d3e)
+[Auth Repo](https://github.com/justincy/nextjs-client-auth-architectures/blob/master/ssr/src/hocs/withAuth.js)
+[Another Auth Repo](https://github.com/tmaximini/next-10-auth)
