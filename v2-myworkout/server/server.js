@@ -25,8 +25,9 @@ app.prepare()
         server.use(cookieParser());
         server.use(
             cookieSession({
-                name: "session",
-                secret: process.env.SESSION_SECRET, //"secret",
+                name: "token",
+                // secret: process.env.SESSION_SECRET, //"secret",
+                keys:["key1"],
                 httpOnly: true,
                 maxAge: 1 * 60 * 1000,
             })

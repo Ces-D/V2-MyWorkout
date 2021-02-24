@@ -42,7 +42,9 @@ authRouter.post("/login", async (req, res) => {
                 user.hashedPassword
             );
             if (passwordValid) {
-                req.session.user = user.id;
+                console.log("User Details", user.dataValues.id);
+                req.session.user = user.dataValues.id;
+                console.log("Session Complete");
                 res.sendStatus(200);
             } else {
                 throw "User not authenticated";
@@ -90,7 +92,8 @@ authRouter.post("/update", async (req, res) => {
 /**
  * Load Existing User
  */
-authRouter.get("/user", async (req, res) => {
+authRouter.post("/user", async (req, res) => {
+    console.log("Profile User", req.session.user);
     try {
         const user = await User.findByPk(req.session.user);
         res.json({ user: user.dataValues.userName });
@@ -102,7 +105,8 @@ authRouter.get("/user", async (req, res) => {
 /**
  * Check if User Authenticated Session Exists
  */
-authRouter.get("/check", (req, res) => {
+authRouter.post("/check", (req, res) => {
+    console.log("Check User", req.session.user);
     if (req.session.user) {
         res.sendStatus(200);
     } else {

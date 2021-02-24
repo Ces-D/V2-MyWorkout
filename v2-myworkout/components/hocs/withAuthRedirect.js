@@ -20,7 +20,7 @@ function DefaultLoadingFallback() {
 
 export default function withAuthRedirect({
     WrappedComponent,
-    Loading = DefaultLoadingFallback,
+    LoadingComponent = DefaultLoadingFallback,
     expectedAuth,
     location,
 }) {

@@ -18,8 +18,11 @@ export const AuthProvider = ({ children }) => {
     const [isLoading, setLoading] = React.useState(true);
     React.useEffect(() => {
         const initializeAuth = async () => {
-            const res = await fetch("api/v1/auth/check");
-            setAuthenticated(res.status === 200);
+            const response = await fetch("/api/v1/auth/check", {
+                method: "POST",
+                credentials: "same-origin",
+            });
+            setAuthenticated(response.status === 200);
             setLoading(false);
         };
         initializeAuth();
