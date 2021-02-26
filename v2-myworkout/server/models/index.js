@@ -1,7 +1,7 @@
-const User = require("./User");
-const Exercise = require("./Exercise");
-const Program = require("./Program");
-const Workout = require("./Workout");
+import User from "./User";
+import Exercise from "./Exercise";
+import Program from "./Program";
+import Workout from "./Workout";
 
 /* User to Program  ~ One-To-Many */
 User.hasMany(Program, {
@@ -37,8 +37,9 @@ Program.belongsToMany(User, {
     // Many clients can partake in many programs
     through: "Client_To_Program",
 });
+
 User.belongsToMany(Program, {
     through: "Client_To_Program",
 }); // Many programs can be used by many clients
 
-module.exports = { User, Exercise, Program, Workout };
+export default { User, Exercise, Program, Workout };

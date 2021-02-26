@@ -1,10 +1,12 @@
+
 import Layout from "../components/Layout";
 import { AuthProvider } from "../lib/authProvider";
+
 import "./globals.css";
 
 function MyApp({ Component, pageProps }) {
     return (
-        <AuthProvider>
+        <AuthProvider authenticated={authenticated}>
             <Layout>
                 <Component {...pageProps} />
             </Layout>

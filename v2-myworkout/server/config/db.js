@@ -1,4 +1,4 @@
-const { Sequelize } = require("sequelize");
+import { Sequelize } from "sequelize";
 const sequelize =
     process.env.NODE_ENV === "production"
         ? new Sequelize(process.env.HEROKU_PG_CONNECTION)
@@ -12,4 +12,4 @@ const sequelize =
                   port: process.env.PG_DEV_PORT,
               },
           });
-module.exports = sequelize;
+export default sequelize;

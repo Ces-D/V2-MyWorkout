@@ -1,50 +1,32 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 
 const AuthContext = React.createContext({
     isAuthenticated: false,
-    isLoading: true,
     setAuthenticated: () => {},
 });
 
-/**
- * Initial value of 'isAuthenticated' comes from the 'authenticated'
- * prop which gets set by _app. We store that value in state and ignore
- * the prop from then on. The value can be changed by calling the
- * 'setAuthenticated()' method
- */
-
-export const AuthProvider = ({ children }) => {
-    const [isAuthenticated, setAuthenticated] = React.useState(false);
-    const [isLoading, setLoading] = React.useState(true);
-    React.useEffect(() => {
-        const initializeAuth = async () => {
-            const response = await fetch("/api/v1/auth/check", {
-                method: "POST",
-                credentials: "same-origin",
-            });
-            setAuthenticated(response.status === 200);
-            setLoading(false);
-        };
-        initializeAuth();
-    });
+export const AuthProvider = ({ children, authenticated }) => {
+    const [isAuthenticated, setAuthenticated] = useState(authenticated);
     return (
-        <AuthContext.Provider
-            value={{ isAuthenticated, isLoading, setAuthenticated }}
-        >
+        <AuthContext.Provider value={{ isAuthenticated, setAuthenticated }}>
             {children}
         </AuthContext.Provider>
     );
 };
 
-// Custom Hooks
+/**
+ * Context hook
+ */
 export function useAuth() {
-    const context = React.useContext(AuthContext);
+    const context = useContext(AuthContext);
     if (context === undefined) {
         throw new Error("useAuth must be used within an AuthProvider");
     }
-    return context;
 }
 
+/**
+ * Returns Boolean signaling auth status
+ */
 export function useIsAuthenticated() {
     const context = useAuth();
     return context.isAuthenticated;

@@ -1,6 +1,6 @@
-const { Sequelize } = require("sequelize");
-const sequelize = require("../config/db");
-const bcrypt = require("bcrypt");
+import { Sequelize } from "sequelize";
+import sequelize from "../config/db";
+import { hashSync } from "bcrypt";
 
 class User extends Sequelize.Model {}
 User.init(
@@ -14,7 +14,7 @@ User.init(
             type: Sequelize.DataTypes.STRING,
             allowNull: false,
             set(value) {
-                const hash = bcrypt.hashSync(value, 10);
+                const hash = hashSync(value, 10);
                 this.setDataValue("hashedPassword", hash);
             },
         },
@@ -22,4 +22,4 @@ User.init(
     { sequelize, timestamps: false }
 );
 
-module.exports = User;
+export default User;

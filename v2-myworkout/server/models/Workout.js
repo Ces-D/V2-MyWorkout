@@ -1,5 +1,5 @@
-const { Sequelize } = require("sequelize");
-const sequelize = require("../config/db");
+import { Sequelize } from "sequelize";
+import sequelize from "../config/db";
 
 class Workout extends Sequelize.Model {
     getWorkoutLength() {
@@ -45,4 +45,4 @@ Workout.init(
     { sequelize, timestamps: true }
 );
 
-module.exports = Workout;
+export default Workout;

@@ -1,5 +1,5 @@
-const { Sequelize } = require("sequelize");
-const sequelize = require("../config/db");
+import { Sequelize } from "sequelize";
+import sequelize from "../config/db";
 
 class Program extends Sequelize.Model {}
 Program.init(
@@ -15,4 +15,4 @@ Program.init(
     { sequelize }
 );
 
-module.exports = Program
+export default Program

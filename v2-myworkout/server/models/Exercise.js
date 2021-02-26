@@ -1,5 +1,5 @@
-const { Sequelize } = require("sequelize");
-const sequelize = require("../config/db");
+import { Sequelize } from "sequelize";
+import sequelize from "../config/db";
 
 class Exercise extends Sequelize.Model {}
 Exercise.init(
@@ -23,4 +23,4 @@ Exercise.init(
     { sequelize, timestamps: true }
 );
 
-module.exports = Exercise;
+export default Exercise;
