@@ -1,1 +1,19 @@
-export const fetcher = (...args) => fetch(...args).then((res) => res.json());
+export default async function fetchJson(...args) {
+    try {
+        const response = await fetch(...args);
+        const data = await response.json();
+        if (response.ok) {
+            return data;
+        } else {
+            const error = new Error(response.statusText);
+            error.response = response;
+            error.data = data;
+            throw error;
+        }
+    } catch (error) {
+        if (!error.data) {
+            error.data = { message: error.message };
+        }
+        throw error;
+    }
+}

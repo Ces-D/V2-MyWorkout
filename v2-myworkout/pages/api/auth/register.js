@@ -1,6 +1,10 @@
 import { User } from "../../../server/models";
+import withSession from "../../../lib/withSession";
 
-export default async function handler(req, res) {
+/**
+ * Register New User
+ */
+export default withSession(async (req, res) => {
     try {
         const { username, password } = req.body;
         const user = await User.findOne({
@@ -16,9 +20,10 @@ export default async function handler(req, res) {
                 },
                 { fields: ["userName", "hashedPassword"] }
             );
-            res.sendStatus(200);
+            res.status(200).json({ data: "User Created Successfully" });
         }
     } catch (error) {
+        console.error("Registration Error: ", error);
         res.status(400).json({ error: error });
     }
-}
+});

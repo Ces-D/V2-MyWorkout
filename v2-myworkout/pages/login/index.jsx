@@ -1,28 +1,36 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-// import RequestErrorBoundary from "../../components/RequestErrorBoundary";
-import withoutAuth from "../../components/hocs/withoutAuth";
-import { useAuth } from "../../lib/authProvider";
+
+import fetchJson from "../../lib/fetchJson";
+import useUser from "../../lib/useUser";
 
 function Login() {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
-    const { setAuthenticated } = useAuth();
+    const [errorMsg, setErrorMsg] = useState("");
+    const { mutateUser } = useUser({
+        redirectTo: "/profile",
+        redirectIfFound: true,
+    });
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("/api/auth/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, password }),
-        });
-        response.status === 200
-            ? setAuthenticated(true)
-            : console.error("Login Error: ", response);
+        try {
+            await mutateUser(
+                fetchJson("/api/auth/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password }),
+                })
+            );
+        } catch (error) {
+            console.error("Login Error ", error);
+            setErrorMsg(error.data.message);
+        }
     };
 
     return (
-        // <RequestErrorBoundary>
         <div>
             <h1>Login Page</h1>
             <Form onSubmit={handleSubmit}>
@@ -45,10 +53,10 @@ function Login() {
                 <Button variant="primary" type="submit">
                     Login
                 </Button>
+                {errorMsg && <p className="danger">{errorMsg}</p>}
             </Form>
         </div>
-        // </RequestErrorBoundary>
     );
 }
 
-export default withoutAuth(Login);
+export default Login;

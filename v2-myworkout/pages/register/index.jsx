@@ -2,24 +2,32 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import withoutAuth from "../../components/hocs/withoutAuth";
-import { useAuth } from "../../lib/authProvider";
+import fetchJson from "../../lib/fetchJson";
+import useUser from "../../lib/useUser";
 
 function Register() {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
-    const { setAuthenticated } = useAuth();
+    const [errorMsg, setErrorMsg] = useState("");
+    const { mutateUser } = useUser({
+        redirectTo: "/profile",
+        redirectIfFound: true,
+    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("/api/auth/register", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, password }),
-        });
-        response.status === 200
-            ? setAuthenticated(true)
-            : console.error("Register Error: ", response);
+        try {
+            await mutateUser(
+                fetchJson("/api/auth/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password }),
+                })
+            );
+        } catch (error) {
+            console.error("Registration Error From Page: ", error.message);
+            setErrorMsg(error);
+        }
     };
 
     return (
@@ -45,9 +53,10 @@ function Register() {
                 <Button variant="primary" type="submit">
                     Register
                 </Button>
+                {errorMsg && <p className="danger">{errorMsg}</p>}
             </Form>
         </div>
     );
 }
 
-export default withoutAuth(Register);
+export default Register;

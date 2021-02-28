@@ -8,6 +8,7 @@ User.hasMany(Program, {
     // authors can make many Programs
     as: "programAuthor",
     foreignKey: { allowNull: false }, // programs must have an author
+    onDelete: "Cascade",
 });
 Program.belongsTo(User); // Each program can only have one author
 
@@ -15,6 +16,7 @@ Program.belongsTo(User); // Each program can only have one author
 User.hasMany(Workout, {
     as: "workoutAuthor",
     foreignKey: { allowNull: false }, // workouts must have an author
+    onDelete: "Cascade",
 }); // trainers can make many workouts
 Workout.belongsTo(User); // Each workout only has an author
 
@@ -22,6 +24,7 @@ Workout.belongsTo(User); // Each workout only has an author
 Program.hasMany(Workout, {
     // Programs can be empty, however ideally they have workouts
     as: "program",
+    onDelete: "Cascade",
 });
 Workout.belongsTo(Program); // each workout belongs to only one Program
 
@@ -29,6 +32,7 @@ Workout.belongsTo(Program); // each workout belongs to only one Program
 Workout.hasMany(Exercise, {
     // Workouts must be made of many exercises
     as: "workout",
+    onDelete: "Cascade",
 });
 Exercise.belongsTo(Workout); // Each exercise is coming from a single workout
 
@@ -42,4 +46,4 @@ User.belongsToMany(Program, {
     through: "Client_To_Program",
 }); // Many programs can be used by many clients
 
-export default { User, Exercise, Program, Workout };
+export { User, Program, Exercise, Workout };

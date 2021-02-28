@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import useSWR from "swr"
+import useUser from "../../lib/useUser";
 
-import withAuth from "../../components/hocs/withAuth";
-
-function Profile(props) {
+function Profile() {
+    const { user } = useUser({ redirectTo: "/login" });
+    console.log(user);
     return (
         <div>
-            <h1>{JSON.stringify(props)}</h1>
+            <div>{JSON.stringify(user)}</div>
+            <div>Profile</div>
         </div>
     );
 }
-
-export default withAuth(Profile);
+export default Profile;
