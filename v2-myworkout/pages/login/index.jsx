@@ -2,18 +2,21 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+import { useRouter } from "next/router";
+
 import fetchJson from "../../lib/fetchJson";
 import useUser from "../../lib/useUser";
 
 function Login() {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
+    const router = useRouter();
     const [errorMsg, setErrorMsg] = useState("");
     const { mutateUser } = useUser({
         redirectTo: "/profile",
         redirectIfFound: true,
     });
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -24,6 +27,7 @@ function Login() {
                     body: JSON.stringify({ username, password }),
                 })
             );
+            router.push("/profile");
         } catch (error) {
             console.error("Login Error ", error);
             setErrorMsg(error.data.message);

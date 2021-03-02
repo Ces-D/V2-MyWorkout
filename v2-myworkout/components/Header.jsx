@@ -13,8 +13,9 @@ export default function Header() {
 
     const navItems = {
         isAuthenticated: [
-            { id: 1, link: "/", text: "Home" },
+            { id: 1, link: "/tracker", text: "Tracker" },
             { id: 2, link: "/profile", text: "Profile" },
+
             // { id: 3, link: "/logout", text: "Logout" }, // Done separately
         ],
         notAuthenticated: [

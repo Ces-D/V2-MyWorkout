@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+
+import { useRouter } from "next/router";
 
 import fetchJson from "../../lib/fetchJson";
 import useUser from "../../lib/useUser";
@@ -8,6 +10,9 @@ import useUser from "../../lib/useUser";
 function Register() {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
+
+    const router = useRouter();
+
     const [errorMsg, setErrorMsg] = useState("");
     const { mutateUser } = useUser({
         redirectTo: "/profile",
@@ -24,12 +29,16 @@ function Register() {
                     body: JSON.stringify({ username, password }),
                 })
             );
+            router.push("/login");
         } catch (error) {
             console.error("Registration Error From Page: ", error.message);
             setErrorMsg(error);
         }
     };
 
+    useEffect(() => {
+        router.prefetch("/login");
+    });
     return (
         <div>
             <h1>Register Page</h1>

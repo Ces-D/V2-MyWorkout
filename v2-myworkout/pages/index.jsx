@@ -23,6 +23,5 @@ class Home extends React.Component {
         );
     }
 }
-// TODO: Figure out what goes on on this page
 
 export default Home;
