@@ -5,7 +5,7 @@ function Profile() {
     const { user } = useUser({ redirectTo: "/login" });
     return (
         <div>
-            <div>{JSON.stringify(user)}</div>
+            <div>{JSON.stringify(user.dataValues.userName)}</div>
             <div>Profile</div>
         </div>
     );

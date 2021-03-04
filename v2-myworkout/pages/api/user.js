@@ -1,5 +1,5 @@
 import withSession from "../../lib/withSession";
-import { User, Program } from "../../server/models";
+import { User } from "../../server/models";
 
 export default withSession(async (req, res) => {
     const user = req.session.get("user");

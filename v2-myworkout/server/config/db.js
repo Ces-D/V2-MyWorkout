@@ -12,4 +12,6 @@ const sequelize =
                   port: process.env.PG_DEV_PORT,
               },
           });
+
+          
 export default sequelize;

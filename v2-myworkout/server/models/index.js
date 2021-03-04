@@ -14,11 +14,12 @@ Program.belongsTo(User); // Each program can only have one author
 
 /* User to Workout ~ One-To-Many */
 User.hasMany(Workout, {
-    as: "workoutAuthor",
     foreignKey: { allowNull: false }, // workouts must have an author
     onDelete: "Cascade",
 }); // trainers can make many workouts
-Workout.belongsTo(User); // Each workout only has an author
+Workout.belongsTo(User, {
+    as: "workoutAuthor",
+}); // Each workout only has an author
 
 /* Program to Workout ~ One-To-Many */
 Program.hasMany(Workout, {
