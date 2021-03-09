@@ -13,5 +13,4 @@ const sequelize =
               },
           });
 
-          
 export default sequelize;

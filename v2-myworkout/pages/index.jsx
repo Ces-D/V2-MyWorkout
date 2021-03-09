@@ -2,12 +2,8 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import fetchJson from "../lib/fetchJson";
-// import useInitialSync from "../lib/useInitialSync";
 
-function Home({ syncStatus }) {
-    // const { syncStatus, loadingSyncStatus } = useInitialSync();
-    console.log(syncStatus);
+function Home() {
     return (
         <Container fluid={true}>
             <Row>
@@ -24,11 +20,6 @@ function Home({ syncStatus }) {
             </Row>
         </Container>
     );
-}
-
-export async function getStaticProps() {
-    const res = fetchJson("api/initial");
-    return { props: { syncStatus: res } };
 }
 
 export default Home;

@@ -2,6 +2,7 @@ import User from "./User";
 import Exercise from "./Exercise";
 import Program from "./Program";
 import Workout from "./Workout";
+import sequelize from "../config/db";
 
 /* User to Program  ~ One-To-Many */
 User.hasMany(Program, {
@@ -47,4 +48,4 @@ User.belongsToMany(Program, {
     through: "Client_To_Program",
 }); // Many programs can be used by many clients
 
-export { User, Program, Exercise, Workout };
+export { User, Program, Workout, Exercise };

@@ -1,5 +1,6 @@
 import withSession from "../../lib/withSession";
 import { User } from "../../server/models";
+import sequelize from "../../server/config/db"
 
 export default withSession(async (req, res) => {
     const user = req.session.get("user");
